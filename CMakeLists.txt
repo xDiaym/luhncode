@@ -1,12 +1,22 @@
 cmake_minimum_required(VERSION 3.26)
-project(luna LANGUAGES CXX)
+project(luhncode LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
+option(LUHNCODE_NO_SIMD "Disable SIMD instruction support" OFF)
+if (LUHNCODE_NO_SIMD)
+    if (CMAKE_SYSTEM_PROCESSOR MATCHES "^x86")
+        message(STATUS "SIMD: disabled")
+    else ()
+        message(FATAL_ERROR "SIMD: not supported, but enabled")
+    endif ()
+else ()
+    message(STATUS "SIMD: enabled")
+endif ()
+
+
+include(cmake/CompilerOptions.cmake)
+include(cmake/SetupCCache.cmake)
 include(cmake/RequireGBench.cmake)
-add_compile_options(-mavx2 -mfma)
-add_compile_options(-O2 -g)
-add_executable(luna main.cpp include/luhncode.hpp)
-target_link_libraries(luna benchmark::benchmark)
+
+add_executable(${CMAKE_PROJECT_NAME} main.cpp include/luhncode.hpp)
+target_link_libraries(${CMAKE_PROJECT_NAME} benchmark::benchmark)
