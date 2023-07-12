@@ -16,7 +16,16 @@ endif ()
 
 include(cmake/CompilerOptions.cmake)
 include(cmake/SetupCCache.cmake)
-include(cmake/RequireGBench.cmake)
 
-add_executable(${CMAKE_PROJECT_NAME} main.cpp include/luhncode.hpp)
-target_link_libraries(${CMAKE_PROJECT_NAME} benchmark::benchmark)
+add_library(${PROJECT_NAME} INTERFACE)
+target_include_directories(${PROJECT_NAME} INTERFACE include)
+
+option(LUHNCODE_BUILD_BENCHMARKS "Enable benchmarking" ON)
+if (LUHNCODE_BUILD_BENCHMARKS)
+    message(STATUS "Benchmarks: enabled")
+    include(cmake/RequireGBench.cmake)
+    add_subdirectory(bench)
+else ()
+    message(STATUS "Benchmarks: disabled")
+endif ()
+
