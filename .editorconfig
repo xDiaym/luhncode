@@ -8,3 +8,6 @@ indent_style = space
 insert_final_newline = true
 max_line_length = 80
 tab_width = 2
+
+[{.cmake,CMakeLists.txt}]
+indent_size = 4
