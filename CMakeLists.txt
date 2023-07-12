@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.26)
 project(luhncode LANGUAGES CXX)
 
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 option(LUHNCODE_NO_SIMD "Disable SIMD instruction support" OFF)
 if (LUHNCODE_NO_SIMD)
     if (CMAKE_SYSTEM_PROCESSOR MATCHES "^x86")

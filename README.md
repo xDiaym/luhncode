@@ -1,6 +1,6 @@
 # Luhncode
 
-Failed attempt to use AVX2 to speed up the Luhn algorithm
+Attempt to use AVX2 to speed up the Luhn algorithm
 
 ## Build
 ```shell
@@ -18,7 +18,8 @@ cmake --build .
 -----------------------------------------------------------------------------------
 Benchmark                                         Time             CPU   Iterations
 -----------------------------------------------------------------------------------
-luhncode_avx_bench/iterations:1000000000      0.310 ns        0.307 ns   1000000000
-luhncode_bench/iterations:1000000000          0.311 ns        0.309 ns   1000000000
+luhncode_avx_bench/1048576/iterations:10    4098808 ns      4089387 ns           10
+luhncode_bench/1048576/iterations:10        5723602 ns      5711503 ns           10
+
 ```
 </details>
